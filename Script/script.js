@@ -44,7 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
         playerOScore++; // Increment Player O's score
       }
       updateScores(); // Update the displayed scores
-      restartGame();
+
+      highlightWinningCells(row, col, 'row'); // To highlight the winning row
+      highlightWinningCells(row, col, 'column'); // To highlight the winning column
+      highlightWinningCells(row, col, 'diagonal'); // To highlight the winning diagonal
+      
+      /*restartGame();*/
       return true;
     }
     return (
@@ -55,6 +60,40 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
   }
+
+
+
+  function highlightWinningCells(row, col, direction) {
+    // Reset all cell styles
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+      cell.style.backgroundColor = '';
+      cell.style.color = '';
+    });
+  
+    // Highlight the winning cells based on the given direction
+    for (let i = 0; i < winLength; i++) {
+      let r, c;
+      if (direction === 'row') {
+        r = row;
+        c = col + i;
+      } else if (direction === 'column') {
+        r = row + i;
+        c = col;
+      } else if (direction === 'diagonal') {
+        r = row + i;
+        c = col + i;
+      }
+  
+      if (r >= 0 && r < boardSize && c >= 0 && c < boardSize) {
+        const cell = document.querySelector(`.cell[data-row="${r}"][data-col="${c}"]`);
+        cell.style.backgroundColor = 'green';
+        cell.style.color = 'white';
+      }
+    }
+  }
+  
+
 
 
   function displayWinMessage(player) {
@@ -69,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cells = document.querySelectorAll('.cell');
     cells.forEach(cell => {
       cell.innerHTML = '';
+      cell.classList.remove('winning');
     });
   
     for (let i = 0; i < boardSize; i++) {
@@ -83,8 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   function updateScores() {
-    const playerXScoreElement = document.querySelector(".player-score:nth-child(1)");
-    const playerOScoreElement = document.querySelector(".player-score:nth-child(2)");
+    const playerXScoreElement = document.querySelector(".playerX-score:nth-child(1)");
+    const playerOScoreElement = document.querySelector(".playerO-score:nth-child(2)");
   
     playerXScoreElement.textContent = `Player X: ${playerXScore}`;
     playerOScoreElement.textContent = `Player O: ${playerOScore}`;
@@ -153,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     squares[row][col] = turn; // Update the game state
 
     if (checkWinner(turn, row, col)) {
-      restartGame();
+      /µrestartGame();*/
     } else {
       turn = turn === 'X' ? 'O' : 'X'; // Switch player's turn
     }
