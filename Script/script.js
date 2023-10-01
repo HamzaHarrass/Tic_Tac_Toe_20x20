@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   const boardSize = 20;
-  const winLength = 5; // Number of symbols in a row to win
+  const winLength = 5; 
   const board = document.querySelector(".board");
   const squares = [];
   let turn = 'X';
   let playerXScore = 0; // Initialize scores for Player X
-  let playerOScore = 0; // Initialize scores for Player O
+  let playerOScore = 0; 
 
   // Create the game board
   for (let i = 0; i < boardSize * boardSize; i++) {
@@ -18,10 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
   // Function to check if there's a winner
+
   function checkWinner(turn, row, col) {
     function checkDirection(dx, dy) {
       let count = 0;
       for (let i = -winLength + 1; i < winLength; i++) {
+      
+
         const r = row + i * dx;
         const c = col + i * dy;
         if (r >= 0 && r < boardSize && c >= 0 && c < boardSize && squares[r][c] === turn) {
@@ -37,24 +40,19 @@ document.addEventListener('DOMContentLoaded', () => {
       return false;
     }
   
-    if (checkDirection(0, 1) || checkDirection(1, 0) || checkDirection(1, 1) || checkDirection(1, -1)) {
+    if (checkDirection(1, 1) || checkDirection(1, -1)) {
       if (turn === 'X') {
         playerXScore++; // Increment Player X's score
       } else {
         playerOScore++; // Increment Player O's score
       }
       updateScores(); // Update the displayed scores
-
-      highlightWinningCells(row, col, 'row'); // To highlight the winning row
-      highlightWinningCells(row, col, 'column'); // To highlight the winning column
-      highlightWinningCells(row, col, 'diagonal'); // To highlight the winning diagonal
-      
-      /*restartGame();*/
+     /*restartGame();*/
       return true;
     }
     return (
-      checkDirection(0, 1) || // Horizontal
-      checkDirection(1, 0) || // Vertical
+   
+   
       checkDirection(1, 1) || // Diagonal (top-left to bottom-right)
       checkDirection(1, -1) // Diagonal (top-right to bottom-left)
     );
@@ -62,37 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-
-  function highlightWinningCells(row, col, direction) {
-    // Reset all cell styles
-    const cells = document.querySelectorAll('.cell');
-    cells.forEach(cell => {
-      cell.style.backgroundColor = '';
-      cell.style.color = '';
-    });
-  
-    // Highlight the winning cells based on the given direction
-    for (let i = 0; i < winLength; i++) {
-      let r, c;
-      if (direction === 'row') {
-        r = row;
-        c = col + i;
-      } else if (direction === 'column') {
-        r = row + i;
-        c = col;
-      } else if (direction === 'diagonal') {
-        r = row + i;
-        c = col + i;
-      }
-  
-      if (r >= 0 && r < boardSize && c >= 0 && c < boardSize) {
-        const cell = document.querySelector(`.cell[data-row="${r}"][data-col="${c}"]`);
-        cell.style.backgroundColor = 'green';
-        cell.style.color = 'white';
-      }
-    }
-  }
-  
 
 
 

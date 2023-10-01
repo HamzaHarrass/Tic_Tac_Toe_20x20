@@ -263,33 +263,53 @@ flex-wrap: wrap;
 
 
 
-
-
-
 /* Style the game board */
 .board {
-    display: grid;
-    grid-template-columns: repeat(20, 40px); /* Create a 3x3 grid */
-    gap: 5px;
-    margin: 10px auto;
-    justify-content: center;
+  width: 75vh;
+  height: 75vh;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr); /* Create a 3x3 grid */
+  grid-template-rows: repeat(20, 1fr);
+  margin: 10px auto;
+  justify-content: center;
 }
 
 /* Style the individual cells */
 .board div {
-    width: 34px;
-    height: 34px;
-    background-color: #fff461;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    margin: 2px;
-    font-size: 25px;
-    font-weight: bold;
-    cursor: pointer;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  margin: 2px;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid #000000 ;
 }
 
 /* Add hover effect for cells */
 .board div:hover {
-    background-color: #000000;
-    color: #fff;
+  background-color: #000000;
+  color: #fff;
+}
+.cell:nth-child(-n+20){
+  border-top: none;
+}
+.cell:nth-child(n-20){
+  border-bottom: none;
+}
+
+.cell:nth-child(20n){
+  border-right: none;
+}
+
+.cell:nth-child(20n + 1) {
+  border-left: none;
+}
+
+/* Add this to your CSS file */
+.cell.winning {
+  background-color: green;
+  color: white;
 }
