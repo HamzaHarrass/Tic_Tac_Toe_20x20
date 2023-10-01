@@ -290,7 +290,7 @@ flex-wrap: wrap;
 
 /* Add hover effect for cells */
 .board div:hover {
-  background-color: #000000;
+  background-color: #fc6969;
   color: #fff;
 }
 .cell:nth-child(-n+20){
@@ -312,4 +312,24 @@ flex-wrap: wrap;
 .cell.winning {
   background-color: green;
   color: white;
+}
+.scores{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.playerX-score{
+  margin-right: 5rem;
+  color: #fc6969;
+  font-size: large;
+}
+.playerO-score{
+  color: #f8c860;
+  font-size: large;
+}
+#win-message{
+  text-align: center;
+  font-size: x-large;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  
 }

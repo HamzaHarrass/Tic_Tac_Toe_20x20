@@ -22,9 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function checkWinner(turn, row, col) {
     function checkDirection(dx, dy) {
       let count = 0;
-      for (let i = -winLength + 1; i < winLength; i++) {
-      
-
+      for (let i = -winLength + 1; i < winLength; i++) {      
         const r = row + i * dx;
         const c = col + i * dy;
         if (r >= 0 && r < boardSize && c >= 0 && c < boardSize && squares[r][c] === turn) {
@@ -40,19 +38,19 @@ document.addEventListener('DOMContentLoaded', () => {
       return false;
     }
   
-    if (checkDirection(1, 1) || checkDirection(1, -1)) {
+    if (checkDirection(0, 1) || checkDirection(1, 0) || checkDirection(1, 1) || checkDirection(1, -1)) {
       if (turn === 'X') {
-        playerXScore++; // Increment Player X's score
+        playerXScore++; 
       } else {
-        playerOScore++; // Increment Player O's score
+        playerOScore++; 
       }
-      updateScores(); // Update the displayed scores
-     /*restartGame();*/
+      updateScores(); 
+     restartGame();
       return true;
     }
     return (
-   
-   
+      checkDirection(0, 1) || // Horizontal
+      checkDirection(1, 0) || // Vertical
       checkDirection(1, 1) || // Diagonal (top-left to bottom-right)
       checkDirection(1, -1) // Diagonal (top-right to bottom-left)
     );
@@ -71,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function restartGame() {
-    // Clear the board visually and reset the squares array
     const cells = document.querySelectorAll('.cell');
     cells.forEach(cell => {
       cell.innerHTML = '';
@@ -105,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('turn', turn);
   }
 
-  // Function to load the game state from localStorage
+
   function loadGameState() {
     const savedSquares = localStorage.getItem('squares');
     const savedTurn = localStorage.getItem('turn');
@@ -117,8 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         squares.push([...parsedSquares[i]]);
       }
       turn = savedTurn;
-
-      // Update the visual board based on the loaded game state
       const cells = document.querySelectorAll('.cell');
       cells.forEach((cell, index) => {
         const row = Math.floor(index / boardSize);
@@ -140,33 +135,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Save the game state when any move is made
+
   saveGameState();
 
 
 
 
 
-  // Event listener for cell clicks
   board.addEventListener('click', (event) => {
     const cell = event.target;
     if (!cell.classList.contains('cell') || cell.innerHTML !== '') {
-      return; // Cell is already taken or not a valid cell
+      return; 
     }
 
-    cell.innerHTML = turn; // Mark the cell with X or O
+    cell.innerHTML = turn; 
     const row = Math.floor(Array.from(cell.parentNode.children).indexOf(cell) / boardSize);
     const col = Array.from(cell.parentNode.children).indexOf(cell) % boardSize;
-    squares[row][col] = turn; // Update the game state
+    squares[row][col] = turn; 
 
     if (checkWinner(turn, row, col)) {
-      /µrestartGame();*/
+      restartGame();
     } else {
       turn = turn === 'X' ? 'O' : 'X'; // Switch player's turn
     }
   });
 
-  // Initialize the board as an empty 2D array
+
   for (let i = 0; i < boardSize; i++) {
     squares.push(new Array(boardSize).fill(''));
   }
