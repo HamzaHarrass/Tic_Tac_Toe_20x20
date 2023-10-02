@@ -290,7 +290,7 @@ flex-wrap: wrap;
 
 /* Add hover effect for cells */
 .board div:hover {
-  background-color: #fc6969;
+  background-color: #7e7e7e;
   color: #fff;
 }
 .cell:nth-child(-n+20){
@@ -326,6 +326,13 @@ flex-wrap: wrap;
 .playerO-score{
   color: #f8c860;
   font-size: large;
+}
+.playerX {
+  color: #fc6969;
+}
+
+.playerO {
+  color: #f8c860;
 }
 #win-message{
   text-align: center;

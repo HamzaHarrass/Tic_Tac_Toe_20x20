@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return; 
     }
 
-    cell.innerHTML = turn; 
+    cell.innerHTML = `<span class="${turn === 'X' ? 'playerX' : 'playerO'}">${turn}</span>`;
     const row = Math.floor(Array.from(cell.parentNode.children).indexOf(cell) / boardSize);
     const col = Array.from(cell.parentNode.children).indexOf(cell) % boardSize;
     squares[row][col] = turn; 
